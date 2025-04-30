@@ -2,6 +2,9 @@
 
 const {Sequelize,DataTypes,} = require("sequelize") //yo xai deconstruct gareko
 
+
+// const bookModel = require("./models/book.model")
+
 //alternative way:---
 // const sequelize = require("sequelize")
 // const Sequelize = sequelize.Sequelize
@@ -21,5 +24,15 @@ sequelize.authenticate()
 const db ={}
 db.Sequelize = Sequelize
 db.sequelize = sequelize
+
+db.books=require("./models/book.model")(sequelize,DataTypes)
+db.users= require("./models/user.model")(sequelize,DataTypes)
+db.products = require("./models/product.model")(sequelize,DataTypes)
+
+// migrate code:---->
+sequelize.sync({alter : false}).then(()=>{
+    console.log("Migrate Vayo")
+})
+
 
 module.exports = db 
